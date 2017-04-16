@@ -14,6 +14,7 @@ import {
 import NavigatorItem from '../components/navigator_item';
 import NavigatorBar from '../components/navigator';
 import Discover from '../discover/discover'
+import Creator from '../creator/creator'
 
 class Navigator extends Component {
   constructor(props){
@@ -27,6 +28,9 @@ class Navigator extends Component {
 
   render(){
     var view = <Discover/>
+    if(this.state.navigate==='new'){
+      view = <Creator/>
+    }
     return(
       <View style={{width:'100%',height:'100%'}}>
         {view}

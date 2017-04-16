@@ -11,7 +11,7 @@ class BoopCard extends Component {
 
   render(){
     return(
-      <ScrollView style={{flex:1,marginBottom:60}}>
+      <ScrollView style={{flex:1,marginBottom:40}}>
         <Image source={placeholder} style={{flex:1}}/>
         <Text style={{color:'#000',fontSize:30,padding:30,paddingBottom:4,fontWeight:'800'}}>{this.props.data.nombre}</Text>
         <Text style={{color:'#000',fontSize:28,paddingLeft:30,fontWeight:'400'}}>{this.props.data.descripcion}</Text>

@@ -7,6 +7,7 @@ import InputDefault from './input'
 import {DefaultButton,PrimaryButton} from './buttons'
 import Space from './space'
 import BackButton from './backButton'
+import {DislikeButton,LikeButton} from './roundedButton'
 
 export {
   Container,
@@ -16,4 +17,6 @@ export {
   PrimaryButton,
   Space,
   BackButton,
+  DislikeButton,
+  LikeButton,
 }

@@ -41,11 +41,16 @@ class Discover extends Component {
     })
   }
 
+  dislike = () => {
+    this.state.boops.pop()
+    this.setState({boops:this.state.boops})
+  }
+
   render(){
     if(this.state.waiting){
       return <BoopsAreWaiting/>
     } else if (this.state.boops.length>0) {
-      return <BoopCard data={this.state.boops[0]} onLike={()=>{alert('like')}} onDislike={()=>{alert('dislike')}}/>
+      return <BoopCard data={this.state.boops[0]} onLike={()=>{alert('like')}} onDislike={this.dislike}/>
     } else {
       return <NoBoops/>
     }

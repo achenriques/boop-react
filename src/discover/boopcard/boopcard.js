@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import {View, Image, TouchableHighlight, Text, StyleSheet } from 'react-native';
-import {Header,Container,Space,InputDefault,PrimaryButton,DefaultButton} from '../../components/bundle'
+import {ScrollView,View, Image, TouchableHighlight, Text, StyleSheet } from 'react-native';
+import {DislikeButton,LikeButton, Header,Container,Space,InputDefault,PrimaryButton,DefaultButton} from '../../components/bundle'
+import Dimensions from 'Dimensions'
+import placeholder from '../../assets/eventoPlaceholder.png'
 
 class BoopCard extends Component {
   constructor(props){
@@ -9,15 +11,31 @@ class BoopCard extends Component {
 
   render(){
     return(
-      <Container>
-        <Header>a {this.props.data.distance}km de ti</Header>
-        <Header>{this.props.data.nombre}</Header>
+      <ScrollView style={{flex:1,marginBottom:60}}>
+        <Image source={placeholder} style={{flex:1}}/>
+        <Text style={{color:'#000',fontSize:30,padding:30,paddingBottom:4,fontWeight:'800'}}>{this.props.data.nombre}</Text>
+        <Text style={{color:'#000',fontSize:28,paddingLeft:30,fontWeight:'400'}}>{this.props.data.descripcion}</Text>
         <Space/>
-        <PrimaryButton onPress={this.props.onLike} title="like"/>
-        <DefaultButton onPress={this.props.onDislike} title="dislike"/>
-      </Container>
+        <Text style={{textAlign:'center',color:'#ff0000',fontSize:26,paddingLeft:30,fontWeight:'200'}}>dentro de 3 dias</Text>
+        <Space/>
+        <View style={likeButtons}>
+          <DislikeButton onPress={this.props.onDislike}/>
+          <LikeButton/>
+        </View>
+        <Space/>
+      </ScrollView>
     )
   }
+}
+
+var likeButtons = {
+  //position:'absolute',
+  //bottom:0,
+  flex:1,
+
+  flexDirection:'row',
+  justifyContent:'space-around',
+  width: "100%",
 }
 
 export default BoopCard

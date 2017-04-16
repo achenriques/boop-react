@@ -13,6 +13,7 @@ import {
 
 import NavigatorItem from '../components/navigator_item';
 import NavigatorBar from '../components/navigator';
+import Discover from '../discover/discover'
 
 class Navigator extends Component {
   constructor(props){
@@ -23,10 +24,12 @@ class Navigator extends Component {
   navigateTo = (id) => {
     this.setState({navigate:id})
   }
-  
+
   render(){
+    var view = <Discover/>
     return(
       <View style={{width:'100%',height:'100%'}}>
+        {view}
         <Text>{this.state.navigate}</Text>
         <NavigatorBar>
           <NavigatorItem id="discover" navigate={this.navigateTo} icon="ios-compass-outline"/>

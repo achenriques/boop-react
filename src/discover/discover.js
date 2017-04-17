@@ -19,10 +19,19 @@ class Discover extends Component {
     navigator.geolocation.getCurrentPosition(this.onSuccessLocation, this.onErrorLocation, {enableHighAccuracy: false, timeout: 10000, maximumAge: 3000} )
   }
 
+  componentWillUnmount(){
+    if(this.geoQuery){
+      this.geoQuery.cancel()
+    }
+    // se usa esta flag para cancelar el cargado de eventos asap
+    this.canceled = true
+  }
+
   onSuccessLocation = (position) => {
     var latitude = position.coords.latitude
     var longitude = position.coords.longitude
     // al conseguir la posicion bien del usuario pedimos boops cercanos a el
+    if(this.canceled){return}
     this.geoQuery = this.geoFire.query({
       center: [latitude, longitude],
       radius: 10
@@ -33,11 +42,14 @@ class Discover extends Component {
   }
 
   boopAdded = (key, location, distance) => {
+    if(this.canceled){return}
     firebase.database().ref('BoopInfo/'+key).once('value').then((snapshot) => {
       var boop = snapshot.val()
       boop.distance = distance
       this.state.boops.push(boop)
-      this.setState({boops:this.state.boops})
+      if(!this.canceled){
+        this.setState({boops:this.state.boops})
+      }
     })
   }
 

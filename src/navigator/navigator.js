@@ -36,10 +36,10 @@ class Navigator extends Component {
         {view}
         <Text>{this.state.navigate}</Text>
         <NavigatorBar>
-          <NavigatorItem id="discover" navigate={this.navigateTo} icon="ios-compass-outline"/>
-          <NavigatorItem id="chats" navigate={this.navigateTo} icon="ios-chatbubbles-outline"/>
-          <NavigatorItem id="new" navigate={this.navigateTo} icon="ios-add-circle-outline"/>
-          <NavigatorItem id="settings" navigate={this.navigateTo} icon="ios-cog"/>
+          <NavigatorItem id="discover" isSelected={"discover" == this.state.navigate} navigate={this.navigateTo} icon="ios-compass-outline"/>
+          <NavigatorItem id="chats" isSelected={"chats" == this.state.navigate} navigate={this.navigateTo} icon="ios-chatbubbles-outline"/>
+          <NavigatorItem id="new" isSelected={"new" == this.state.navigate} navigate={this.navigateTo} icon="ios-add-circle-outline"/>
+          <NavigatorItem id="settings" isSelected={"settings" == this.state.navigate} navigate={this.navigateTo} icon="ios-cog"/>
         </NavigatorBar>
       </View>
     )

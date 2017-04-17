@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {ScrollView,View, Image, TouchableHighlight, Text, StyleSheet } from 'react-native';
 import {DislikeButton,LikeButton, Header,Container,Space,InputDefault,PrimaryButton,DefaultButton} from '../../components/bundle'
-import Dimensions from 'Dimensions'
 import placeholder from '../../assets/eventoPlaceholder.png'
 
 class BoopCard extends Component {

@@ -43,14 +43,8 @@ class Discover extends Component {
 
   boopAdded = (key, location, distance) => {
     if(this.canceled){return}
-    firebase.database().ref('BoopInfo/'+key).once('value').then((snapshot) => {
-      var boop = snapshot.val()
-      boop.distance = distance
-      this.state.boops.push(boop)
-      if(!this.canceled){
-        this.setState({boops:this.state.boops})
-      }
-    })
+    this.state.boops.push({key,distance})
+    this.setState({boops:this.state.boops})
   }
 
   dislike = () => {

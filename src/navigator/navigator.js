@@ -19,7 +19,7 @@ import Creator from '../creator/creator'
 class Navigator extends Component {
   constructor(props){
     super(props)
-    this.state = {navigate:''}
+    this.state = {navigate:'discover'}
   }
 
   navigateTo = (id) => {
@@ -36,10 +36,14 @@ class Navigator extends Component {
         {view}
         <Text>{this.state.navigate}</Text>
         <NavigatorBar>
-          <NavigatorItem id="discover" isSelected={"discover" == this.state.navigate} navigate={this.navigateTo} icon="ios-compass-outline"/>
-          <NavigatorItem id="chats" isSelected={"chats" == this.state.navigate} navigate={this.navigateTo} icon="ios-chatbubbles-outline"/>
-          <NavigatorItem id="new" isSelected={"new" == this.state.navigate} navigate={this.navigateTo} icon="ios-add-circle-outline"/>
-          <NavigatorItem id="settings" isSelected={"settings" == this.state.navigate} navigate={this.navigateTo} icon="ios-cog"/>
+          <NavigatorItem id="discover" isSelected={"discover" == this.state.navigate}
+            navigate={this.navigateTo} icon="ios-compass-outline"/>
+          <NavigatorItem id="chats" isSelected={"chats" == this.state.navigate}
+            navigate={this.navigateTo} icon="ios-chatbubbles-outline"/>
+          <NavigatorItem id="new" isSelected={"new" == this.state.navigate}
+            navigate={this.navigateTo} icon="ios-add-circle-outline"/>
+          <NavigatorItem id="settings" isSelected={"settings" == this.state.navigate}
+            navigate={this.navigateTo} icon="ios-cog"/>
         </NavigatorBar>
       </View>
     )

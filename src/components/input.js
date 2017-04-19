@@ -6,7 +6,7 @@ class InputDefault extends Component {
   render(){
     return(
       <TextInput underlineColorAndroid='transparent' style={[style.inputDefault,this.props.style]} placeholder={this.props.placeholder}
-        onChangeText={ this.props.onChange } />
+        onChange={ this.props.onChangeText } />
     )
   }
 }

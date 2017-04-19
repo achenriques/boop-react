@@ -3,23 +3,35 @@
 import React, { Component } from 'react';
 import firebase from '../firebaseConfig';
 import GeoFire from 'geofire';
-import {TimePickerAndroid,DatePickerAndroid,ScrollView,View, Image, TouchableHighlight, Text, StyleSheet } from 'react-native';
+import {Alert,TimePickerAndroid,DatePickerAndroid,ScrollView,View, Image, TouchableHighlight, Text, StyleSheet } from 'react-native';
 import {DislikeButton,LikeButton, Header,Container,Space,InputDefault,PrimaryButton,DefaultButton} from '../components/bundle'
 
 import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 
 import placeholder from '../assets/eventoPlaceholder.png'
+import SlidingImageContainer from '../components/slidingImageContainer'
 
 class Creator extends Component {
   constructor(props){
     super(props)
-    this.state = {fecha:'fecha',hora:'hora'}
+    this.state = {fecha:'fecha',hora:'hora',waiting:false}
+    this.b = {}
+  }
+
+  componentDidMount(){
+    this.geoFire = new GeoFire(firebase.database().ref('locations'))
+    navigator.geolocation.getCurrentPosition(this.onSuccessLocation, this.onErrorLocation, {enableHighAccuracy: false, timeout: 10000, maximumAge: 3000} )
+  }
+
+  onSuccessLocation = (position) => {
+    this.setState({latitude:position.coords.latitude, longitude:position.coords.longitude})
+    this.boopInfo = firebase.database().ref('BoopInfo').push()
   }
 
   manageDate = () => {
     DatePickerAndroid.open({date:new Date(),mode:'default'}).then( (data) => {
       if(data.action !== DatePickerAndroid.dismissedAction){
-        this.setState({fecha:`${data.day}/${data.month}/${data.year}`})
+        this.setState({fecha:data})
       }
     })
   }
@@ -27,29 +39,53 @@ class Creator extends Component {
   manageTime = () => {
     TimePickerAndroid.open({is24Hour:true}).then( (data) => {
       if(data.action !== TimePickerAndroid.dismissedAction){
-        this.setState({hora:`${data.hour}:${data.minute}`})
+        this.setState({hora:data})
       }
     })
   }
 
+  confirmPublish = () => {
+    Alert.alert(
+      'Publishing a new event',
+      'Are you sure?',
+      [
+        {text: 'Ummm...', style: 'cancel'},
+        {text: 'Yes', onPress: this.doPublish},
+      ],
+      { cancelable: true }
+    )
+  }
+
+  doPublish = () => {
+    this.boopInfo.set({
+      title: this.b.title,
+      description: this.b.title,
+      place: this.b.place,
+      date: new Date(this.state.fecha.year,
+                    this.state.fecha.month,
+                    this.state.fecha.day,
+                    this.state.hora.hour,
+                    this.state.hora.minute).getTime()
+    })
+    this.geoFire.set(this.boopInfo.key, [this.state.latitude, this.state.longitude])
+  }
+
   render(){
     return(
-      <ScrollView style={{width:'100%',flex:1,marginBottom:40}}>
+      <SlidingImageContainer image={placeholder}>
         <View style={{width:'100%',flex:1, justifyContent:'center',alignContent:'center'}}>
-        <Image source={placeholder} style={{flex:1}}/>
         <DefaultButton title='Cambiar imagen'/>
         <Space/>
-        <Space/>
-        <InputDefault placeholder='titulo'/>
-        <AutoGrowingTextInput style={input} placeholder={'Descripcion'} />
-        <AutoGrowingTextInput style={input} placeholder={'Lugar'} />
+        <InputDefault onChange={(text)=>{this.b.title = text}} placeholder='titulo'/>
+        <AutoGrowingTextInput onChangeText={(text)=>{this.b.description = text}} style={input} placeholder={'Descripcion'} />
+        <AutoGrowingTextInput onChangeText={(text)=>{this.b.place = text}} style={input} placeholder={'Lugar'} />
         <DefaultButton title={this.state.fecha} onPress={this.manageDate}/>
         <DefaultButton title={this.state.hora} onPress={this.manageTime}/>
         <Space/>
-        <PrimaryButton title='publicar'/>
+        <PrimaryButton onPress={this.confirmPublish} title='publicar'/>
         <Space/>
         </View>
-      </ScrollView>
+      </SlidingImageContainer>
     )
   }
 }

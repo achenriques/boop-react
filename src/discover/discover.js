@@ -43,12 +43,12 @@ class Discover extends Component {
 
   boopAdded = (key, location, distance) => {
     if(this.canceled){return}
-    this.state.boops.push({key,distance})
+    this.state.boops.push(key)
     this.setState({boops:this.state.boops})
   }
 
   dislike = () => {
-    this.state.boops.pop()
+    this.state.boops.shift()
     this.setState({boops:this.state.boops})
   }
 
@@ -56,7 +56,7 @@ class Discover extends Component {
     if(this.state.waiting){
       return <Loading status="Buscando boops"/>
     } else if (this.state.boops.length>0) {
-      return <BoopCard data={this.state.boops[0]} onLike={()=>{alert('like')}} onDislike={this.dislike}/>
+      return <BoopCard firekey={this.state.boops[0]} onLike={()=>{alert('like')}} onDislike={this.dislike}/>
     } else {
       return <NoBoops/>
     }

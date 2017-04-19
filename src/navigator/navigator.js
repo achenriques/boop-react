@@ -34,7 +34,6 @@ class Navigator extends Component {
     return(
       <View style={{width:'100%',height:'100%'}}>
         {view}
-        <Text>{this.state.navigate}</Text>
         <NavigatorBar>
           <NavigatorItem id="discover" isSelected={"discover" == this.state.navigate}
             navigate={this.navigateTo} icon="ios-compass-outline"/>

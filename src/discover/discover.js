@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import firebase from '../firebaseConfig';
 import GeoFire from 'geofire';
 
-import BoopsAreWaiting from './waiting/waiting'
+import Loading from '../components/loading'
 import BoopCard from './boopcard/boopcard'
 import NoBoops from './noboops/noboops'
 
@@ -54,7 +54,7 @@ class Discover extends Component {
 
   render(){
     if(this.state.waiting){
-      return <BoopsAreWaiting/>
+      return <Loading status="Buscando boops"/>
     } else if (this.state.boops.length>0) {
       return <BoopCard data={this.state.boops[0]} onLike={()=>{alert('like')}} onDislike={this.dislike}/>
     } else {

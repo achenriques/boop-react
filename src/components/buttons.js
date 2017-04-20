@@ -5,7 +5,7 @@ import { TouchableHighlight, Text, StyleSheet } from 'react-native';
 class PrimaryButton extends Component {
   render(){
     return(
-      <TouchableHighlight style={buttons.inputPrimary} onPress={this.props.onPress}>
+      <TouchableHighlight style={[buttons.inputPrimary,this.props.style]} onPress={this.props.onPress}>
       <Text style={{color:"#fff"}} >{this.props.title}</Text>
       </TouchableHighlight>
     )

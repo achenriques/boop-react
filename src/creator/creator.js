@@ -7,7 +7,7 @@ import {Alert,TimePickerAndroid,DatePickerAndroid,ScrollView,View, Image, Toucha
 import {DislikeButton,LikeButton, Header,Container,Space,InputDefault,PrimaryButton,DefaultButton} from '../components/bundle'
 
 import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
-
+import CreateForm from './form-validator/form.js'
 import placeholder from '../assets/eventoPlaceholder.png'
 import SlidingImageContainer from '../components/slidingImageContainer'
 
@@ -26,22 +26,6 @@ class Creator extends Component {
   onSuccessLocation = (position) => {
     this.setState({latitude:position.coords.latitude, longitude:position.coords.longitude})
     this.boopInfo = firebase.database().ref('BoopInfo').push()
-  }
-
-  manageDate = () => {
-    DatePickerAndroid.open({date:new Date(),mode:'default'}).then( (data) => {
-      if(data.action !== DatePickerAndroid.dismissedAction){
-        this.setState({fecha:data})
-      }
-    })
-  }
-
-  manageTime = () => {
-    TimePickerAndroid.open({is24Hour:true}).then( (data) => {
-      if(data.action !== TimePickerAndroid.dismissedAction){
-        this.setState({hora:data})
-      }
-    })
   }
 
   confirmPublish = () => {
@@ -73,18 +57,7 @@ class Creator extends Component {
   render(){
     return(
       <SlidingImageContainer image={placeholder}>
-        <View style={{width:'100%',flex:1, justifyContent:'center',alignContent:'center'}}>
-        <DefaultButton title='Cambiar imagen'/>
-        <Space/>
-        <InputDefault onChange={(text)=>{this.b.title = text}} placeholder='titulo'/>
-        <AutoGrowingTextInput onChangeText={(text)=>{this.b.description = text}} style={input} placeholder={'Descripcion'} />
-        <AutoGrowingTextInput onChangeText={(text)=>{this.b.place = text}} style={input} placeholder={'Lugar'} />
-        <DefaultButton title={this.state.fecha} onPress={this.manageDate}/>
-        <DefaultButton title={this.state.hora} onPress={this.manageTime}/>
-        <Space/>
-        <PrimaryButton onPress={this.confirmPublish} title='publicar'/>
-        <Space/>
-        </View>
+        <CreateForm/>
       </SlidingImageContainer>
     )
   }

@@ -35,6 +35,20 @@ class InputDefault extends Component {
   }
 }
 
+class GrowingInput extends InputDefault {
+  render(){
+    return(
+      <View style={{width:'80%',alignSelf:'center'}}>
+      <AutoGrowingTextInput underlineColorAndroid='transparent'
+        style={this.state.style}
+        placeholder={this.props.placeholder}
+        onChangeText={ this.manage } />
+        <Text style={{color:'#ff0000',marginLeft:30}}>{this.state.error}</Text>
+      </View>
+    )
+  }
+}
+
 var style_input = {
   inputDefault : {
     alignSelf:'center',
@@ -57,4 +71,4 @@ var style_input = {
   }
 }
 
-export default InputDefault
+export { InputDefault, GrowingInput }

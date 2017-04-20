@@ -38,9 +38,10 @@ class BoopCard extends Component {
     return(
       <View style={{width:'100%',flex:1}}>
         <SlidingImageContainer image={placeholder}>
-          <Text style={{color:'#000',fontSize:30,padding:30,paddingBottom:4,fontWeight:'800'}}>{this.state.b.nombre}</Text>
-          <Text style={{color:'#000',fontSize:25,paddingLeft:30,fontWeight:'400'}}>{this.state.b.descripcion}</Text>
+          <Text style={{color:'#000',fontSize:30,padding:30,paddingBottom:4,fontWeight:'800'}}>{this.state.b.title}</Text>
+          <Text style={{color:'#000',fontSize:25,paddingLeft:30,fontWeight:'400'}}>{this.state.b.description}</Text>
           <Space/>
+          <Text style={{color:'#000',fontSize:25,paddingLeft:30,fontWeight:'400'}}>in {this.state.b.place}</Text>
           <Text style={{textAlign:'center',color:'#ff0000',fontSize:26,paddingLeft:30,fontWeight:'200'}}>dentro de 3 dias</Text>
           <View style={{height:150}}/>
         </SlidingImageContainer>

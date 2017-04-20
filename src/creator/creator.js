@@ -28,36 +28,27 @@ class Creator extends Component {
     this.boopInfo = firebase.database().ref('BoopInfo').push()
   }
 
-  confirmPublish = () => {
+  confirmPublish = (event) => {
     Alert.alert(
       'Publishing a new event',
       'Are you sure?',
       [
         {text: 'Ummm...', style: 'cancel'},
-        {text: 'Yes', onPress: this.doPublish},
+        {text: 'Yes', onPress: this.doPublish(event)},
       ],
       { cancelable: true }
     )
   }
 
-  doPublish = () => {
-    this.boopInfo.set({
-      title: this.b.title,
-      description: this.b.title,
-      place: this.b.place,
-      date: new Date(this.state.fecha.year,
-                    this.state.fecha.month,
-                    this.state.fecha.day,
-                    this.state.hora.hour,
-                    this.state.hora.minute).getTime()
-    })
+  doPublish = (event) => {
+    this.boopInfo.set(event)
     this.geoFire.set(this.boopInfo.key, [this.state.latitude, this.state.longitude])
   }
 
   render(){
     return(
       <SlidingImageContainer image={placeholder}>
-        <CreateForm/>
+        <CreateForm onPublish={this.confirmPublish}/>
       </SlidingImageContainer>
     )
   }

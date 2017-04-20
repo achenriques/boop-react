@@ -8,9 +8,6 @@ class PrimaryButton extends Component {
     this.state = {disabled:false}
   }
 
-  componentWillReceiveProps(nextProps){
-    this.setState({disabled:nextProps.disabled})
-  }
   render(){
     if(this.state.disabled){
       var s = buttons.inputDisabled

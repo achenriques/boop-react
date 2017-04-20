@@ -3,7 +3,7 @@
 
 import Container from './container'
 import Header from './header'
-import InputDefault from './input'
+import {InputDefault, GrowingInput} from './input'
 import {DefaultButton,PrimaryButton} from './buttons'
 import Space from './space'
 import BackButton from './backButton'
@@ -19,4 +19,5 @@ export {
   BackButton,
   DislikeButton,
   LikeButton,
+  GrowingInput,
 }

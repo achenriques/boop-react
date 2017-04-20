@@ -3,9 +3,22 @@ import { TouchableHighlight, Text, StyleSheet } from 'react-native';
 
 
 class PrimaryButton extends Component {
+  constructor(props){
+    super(props)
+    this.state = {disabled:false}
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({disabled:nextProps.disabled})
+  }
   render(){
+    if(this.state.disabled){
+      var s = buttons.inputDisabled
+    }else{
+      var s = buttons.inputPrimary
+    }
     return(
-      <TouchableHighlight style={[buttons.inputPrimary,this.props.style]} onPress={this.props.onPress}>
+      <TouchableHighlight style={[s,this.props.style]} onPress={this.props.onPress}>
       <Text style={{color:"#fff"}} >{this.props.title}</Text>
       </TouchableHighlight>
     )
@@ -22,7 +35,7 @@ class DefaultButton extends Component {
   }
 }
 
-var buttons = StyleSheet.create({
+var buttons = {
   inputPrimary : {
     width:"80%",
     alignItems:"center",
@@ -42,6 +55,16 @@ var buttons = StyleSheet.create({
     margin:10,
     padding:15,
   },
-})
+  inputDisabled : {
+    width:"80%",
+    alignItems:"center",
+    alignSelf:'center',
+    borderWidth:0,
+    backgroundColor:"#f3f3f3",
+    borderRadius:10,
+    margin:10,
+    padding:15,
+  },
+}
 
 export {DefaultButton,PrimaryButton}

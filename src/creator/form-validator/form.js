@@ -58,7 +58,7 @@ class CreateForm extends Component {
       <DefaultButton title={this.state.fecha} onPress={this.manageDate}/>
       <DefaultButton title={this.state.hora} onPress={this.manageTime}/>
       <Space/>
-      <PrimaryButton onPress={this.publish} title={this.state.error}/>
+      <PrimaryButton disabled={!this.is_valid} onPress={this.publish} title={this.state.error}/>
       <Space/>
       </View>
     )

@@ -63,14 +63,4 @@ class Creator extends Component {
   }
 }
 
-var input = {
-  width:"80%",
-  borderWidth:0.1,
-  borderRadius:10,
-  alignSelf:'center',
-  margin:10,
-  fontSize: 20,
-  padding:15,
-}
-
 export default Creator

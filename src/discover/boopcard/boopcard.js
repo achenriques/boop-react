@@ -5,6 +5,7 @@ import placeholder from '../../assets/eventoPlaceholder.png'
 import Loading from '../../components/loading'
 import SlidingImageContainer from '../../components/slidingImageContainer'
 import firebase from '../../firebaseConfig';
+import EstimatedTime from './eta'
 
 class BoopCard extends Component {
   constructor(props){
@@ -42,7 +43,7 @@ class BoopCard extends Component {
           <Text style={{color:'#000',fontSize:25,paddingLeft:30,fontWeight:'400'}}>{this.state.b.description}</Text>
           <Space/>
           <Text style={{color:'#000',fontSize:25,paddingLeft:30,fontWeight:'400'}}>in {this.state.b.place}</Text>
-          <Text style={{textAlign:'center',color:'#ff0000',fontSize:26,paddingLeft:30,fontWeight:'200'}}>dentro de 3 dias</Text>
+          <EstimatedTime date={this.state.b.date}/>
           <View style={{height:150}}/>
         </SlidingImageContainer>
         <View style={likeButtons}>

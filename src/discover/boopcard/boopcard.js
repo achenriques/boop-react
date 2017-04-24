@@ -4,13 +4,13 @@ import {DislikeButton,LikeButton, Header,Container,Space,InputDefault,PrimaryBut
 import placeholder from '../../assets/eventoPlaceholder.png'
 import Loading from '../../components/loading'
 import SlidingImageContainer from '../../components/slidingImageContainer'
-import firebase from '../../firebaseConfig';
+import Runner from '../../core/firebaseRunner'
 import EstimatedTime from './eta'
 
 class BoopCard extends Component {
   constructor(props){
     super(props)
-    this.state = {waiting:true}
+    this.state = {waiting:true,firekey:this.props.firekey}
   }
 
   componentDidMount(){
@@ -24,21 +24,19 @@ class BoopCard extends Component {
   }
 
   getBoopCard = (key) => {
-    this.setState({waiting:true})
-    firebase.database().ref('BoopInfo/'+key).once('value').then((snapshot) => {
-      var b = snapshot.val()
-      this.setState({b:b,waiting:false})
+    this.setState({waiting:true,firekey:key})
+    Runner.getBoop(key).then((b)=>{
+      this.setState({b:b.val(),waiting:false})
     })
   }
 
   render(){
     if(this.state.waiting){
-      // aqui hay que poner una pantalla de carga de boop
       return <Loading status="Cargando evento"/>
     }
     return(
       <View style={{width:'100%',flex:1}}>
-        <SlidingImageContainer image={placeholder}>
+        <SlidingImageContainer src={this.state.firekey}>
           <Text style={{color:'#000',fontSize:30,padding:30,paddingBottom:4,fontWeight:'800'}}>{this.state.b.title}</Text>
           <Text style={{color:'#000',fontSize:25,paddingLeft:30,fontWeight:'400'}}>{this.state.b.description}</Text>
           <Space/>

@@ -66,6 +66,8 @@ class CreateForm extends Component {
     return(
       <View style={{width:'100%',flex:1, justifyContent:'center',alignContent:'center'}}>
 
+      <DefaultButton title={this.props.uploadStatus} onPress={this.props.onImageChange}/>
+
       <GrowingInput validate={this.short} value={this.state.title} placeholder='Title of your awesome event'
         onChange={(t)=> this.setState({title:t})} error='title must be between 6 and 20 letters' />
 

@@ -8,23 +8,33 @@ import {DislikeButton,LikeButton, Header,Container,Space,InputDefault,PrimaryBut
 
 import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 import CreateForm from './form-validator/form.js'
-import placeholder from '../assets/eventoPlaceholder.png'
+import placeholder from '../assets/noimage.png'
 import SlidingImageContainer from '../components/slidingImageContainer'
+
+import ImagePicker from 'react-native-image-crop-picker';
+import RNFetchBlob from 'react-native-fetch-blob'
+import localizate from '../core/localizator'
+
+const fs = RNFetchBlob.fs
+const Blob = RNFetchBlob.polyfill.Blob
+
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
 
 class Creator extends Component {
   constructor(props){
     super(props)
-    this.state = {fecha:'fecha',hora:'hora',waiting:false}
+    this.state = {fecha:'fecha',hora:'hora',waiting:false,src:false,uploadStatus:'Click to change image'}
     this.b = {}
   }
 
   componentDidMount(){
     this.geoFire = new GeoFire(firebase.database().ref('locations'))
-    navigator.geolocation.getCurrentPosition(this.onSuccessLocation, this.onErrorLocation, {enableHighAccuracy: false, timeout: 10000, maximumAge: 3000} )
+    localizate(firebase.auth().currentUser.uid).then(this.onSuccessLocation)
   }
 
   onSuccessLocation = (position) => {
-    this.setState({latitude:position.coords.latitude, longitude:position.coords.longitude})
+    this.setState({latitude:position.latitude, longitude:position.longitude})
     this.boopInfo = firebase.database().ref('BoopInfo').push()
   }
 
@@ -45,10 +55,29 @@ class Creator extends Component {
     this.geoFire.set(this.boopInfo.key, [this.state.latitude, this.state.longitude])
   }
 
+  managePick = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: false
+    }).then(image => {
+      this.manageImage(image.path)
+    });
+  }
+
+  manageImage = (path) => {
+    p = RNFetchBlob.wrap(path,{type: 'image/png'})
+    Blob.build(p).then((blob) => {
+      firebase.storage().ref('images/'+this.boopInfo.key).put(blob,{contentType:'image/png'}).then(()=>{
+        this.setState({src:this.boopInfo.key})
+      })
+    })
+  }
+
   render(){
     return(
-      <SlidingImageContainer image={placeholder}>
-        <CreateForm onPublish={this.confirmPublish}/>
+      <SlidingImageContainer src={this.state.src}>
+        <CreateForm uploadStatus={this.state.uploadStatus} onImageChange={this.managePick} onPublish={this.confirmPublish}/>
       </SlidingImageContainer>
     )
   }

@@ -7,14 +7,15 @@ import {
   Image,
 } from 'react-native';
 import styles from './style.js'
+import logo from '../assets/f1.png'
 
 class Splashing extends Component {
   render(){
     return(
       <View style={styles.splashing}>
         <Image
-          style={{width: 450, height: 450}}
-          source={{uri: 'http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif.pagespeed.ce.DETazxsDgB.gif'}}
+          style={{width: 215, height: 215}}
+          source={logo}
         />
       </View>
     )

@@ -26,6 +26,18 @@ class DislikeButton extends Component {
   }
 }
 
+class NextButton extends Component {
+  render(){
+    return(
+        <TouchableHighlight onPress={this.props.onPress}>
+        <View style={dislikeCnt}>
+          <Icon name='clock' size={40} style={nextStyle}/>
+        </View>
+        </TouchableHighlight>
+    )
+  }
+}
+
 var likeStyle = {
   textAlignVertical:'center',
   width:40,
@@ -58,7 +70,16 @@ var dislikeCnt = {
   backgroundColor:'#fafafa',
 }
 
+var nextStyle = {
+  textAlignVertical:'center',
+  width:40,
+  height:40,
+  color:"#20A6FC",
+  fontWeight:'900',
+}
+
 export {
   DislikeButton,
-  LikeButton
+  LikeButton,
+  NextButton,
 }

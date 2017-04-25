@@ -19,20 +19,41 @@ class Discover extends Component {
 
   onReady = (list) => {
     this.boops = list
-    this.setState({Boop:this.boops[0],waiting:false})
+    this.nextKey()
   }
 
   dislike = () => {
+    Runner.dislike(this.state.Boop)
+    this.nextKey()
+  }
+
+  like = () => {
+    Runner.likeBoop(this.state.Boop)
+    this.nextKey()
+  }
+
+  nextKey = () => {
+    var key = this.boops[0]
     this.boops.shift()
-    var actualBoop = this.boops[0]
-    this.setState({Boop:actualBoop})
+    if(key){
+      this.setState({waiting:true})
+      Runner.isViewed(key).then( (viewed) => {
+        if(!viewed){
+          this.setState({waiting:false,Boop:key})
+        }else{
+          this.nextKey()
+        }
+      })
+    }else{
+      this.setState({waiting:false,Boop:false})
+    }
   }
 
   render(){
     if(this.state.waiting){
       return <Loading status="Buscando boops"/>
     } else if (this.state.Boop) {
-      return <BoopCard firekey={this.state.Boop} onLike={()=>{alert('like')}} onDislike={this.dislike}/>
+      return <BoopCard firekey={this.state.Boop} onNext={this.nextKey} onLike={this.like} onDislike={this.dislike}/>
     } else {
       return <NoBoops/>
     }

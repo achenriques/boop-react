@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {ScrollView,View, Image, TouchableHighlight, Text, StyleSheet } from 'react-native';
-import {DislikeButton,LikeButton, Header,Container,Space,InputDefault,PrimaryButton,DefaultButton} from '../../components/bundle'
+import {NextButton,DislikeButton,LikeButton, Header,Container,Space,InputDefault,PrimaryButton,DefaultButton} from '../../components/bundle'
 import placeholder from '../../assets/eventoPlaceholder.png'
 import Loading from '../../components/loading'
 import SlidingImageContainer from '../../components/slidingImageContainer'
@@ -46,6 +46,7 @@ class BoopCard extends Component {
         </SlidingImageContainer>
         <View style={likeButtons}>
           <DislikeButton onPress={this.props.onDislike}/>
+          <NextButton onPress={this.props.onNext}/>
           <LikeButton onPress={this.props.onLike}/>
         </View>
       </View>
